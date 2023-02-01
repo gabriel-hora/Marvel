@@ -45,7 +45,7 @@ class CharactersFragment : Fragment() {
         observeInitialLoadState()
 
         lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.charactersPagingData("").collect { pagingData ->
                     charactersAdapter.submitData(pagingData)
                 }
@@ -56,6 +56,7 @@ class CharactersFragment : Fragment() {
     private fun initCharactersAdapter() {
         charactersAdapter = CharactersAdapter()
         with(binding.recyclerCharacters) {
+            scrollToPosition(0)
             setHasFixedSize(true)
             adapter = charactersAdapter.withLoadStateFooter(
                 footer = CharactersLoadStateAdapter(
